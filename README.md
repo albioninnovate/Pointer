@@ -3,7 +3,7 @@
  Circuitpython does not yet support PicoW
 
 # Micropython for the PICOw
-https://micropython.org/download/rp2-pico-w/
+[https://micropython.org/download/rp2-pico-w/]()
 
 # see this for getting on line
 <https://datasheets.raspberrypi.com/picow/connecting-to-the-internet-with-pico-w.pdf>

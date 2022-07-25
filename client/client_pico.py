@@ -1,14 +1,18 @@
 import socket
 
+"""
+This script is a client that receives data from the 
+"""
+
 picoIP = '10.0.254.252'
 
-picoPort = 80
+picoPort = 35492
 
 tcpSocket = socket.socket()
 
 try:
     tcpSocket.connect((picoIP,picoPort))
-    data = tcpSocket.recv(1024)
+    data = tcpSocket.recv(100)
 
     print(data)
 

@@ -6,8 +6,8 @@ import network
 
 print('hello')
 
-ssid = 'DrayTek'
-password = 'ILikeCake365'
+ssid = 'ssid'
+password = 'password'
 
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)

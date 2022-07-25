@@ -2,6 +2,15 @@
 import uasyncio
 import utime
 
+"""
+This version of the client script works with an earlier version of the system.  That architecture had a 
+raspberrypi-server with circuit-python runsecrets.pyninng on the PICO version of the system.  This script ran on 
+the laptop along with animate-polar.py. and/or stelcom.py. it function was to receive the data sent by the 
+raspberry pi server which had a serial connection to the PICO. 
+
+"""
+
+
 async def tcp_echo_client(message):
     # reader, writer = await asyncio.open_connection('169.254.162.167', 8888)
     # reader, writer = await asyncio.open_connection('triscopepi.local', 8888)

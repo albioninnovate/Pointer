@@ -5,14 +5,16 @@
 
 import machine
 import time
-from bno055 import *
+from server.bno055 import *
 # Tested configurations
 # Pyboard hardware I2C
 # i2c = machine.I2C(1)
 
 # Pico: hard I2C doesn't work without this patch
 # https://github.com/micropython/micropython/issues/8167#issuecomment-1013696765
-i2c = machine.I2C(0, sda=machine.Pin(16), scl=machine.Pin(17))  # EIO error almost immediately
+#i2c = machine.I2C(0, sda=machine.Pin(18), scl=machine.Pin(19))  # EIO error almost immediately
+i2c = machine.SoftI2C(sda=machine.Pin(18), scl=machine.Pin(19), timeout=100_000)
+
 
 # All platforms: soft I2C requires timeout >= 1000μs
 # i2c = machine.SoftI2C(sda=machine.Pin(16), scl=machine.Pin(17), timeout=1_000)

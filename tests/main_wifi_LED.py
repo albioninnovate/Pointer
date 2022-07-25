@@ -26,8 +26,8 @@ print(wlan.config('essid'))
 print(wlan.config('txpower'))
 
 # Load login data from different file for safety reasons
-ssid = 'DrayTek'
-password = 'ILikeCake365'
+ssid = 'SSID'
+password = 'password'
 
 wlan.connect(ssid, password)
 
