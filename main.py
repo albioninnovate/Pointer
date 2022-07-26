@@ -1,60 +1,66 @@
-import socket
+import picorobotics
+# from picorobotics import PicoRobotics
+import utime
+from client_pico import get_data
 import wifi
-import time
 
+board = picorobotics.KitronikPicoRobotics()
+#board = PicoRobotics.KitronikPicoRobotics()
+directions = ["f","r"]
 
-"""
-This script is a client that receives data from the 
-"""
-
-
-
-def open_port():
-    picoIP = '192.168.1.23'
-    #picoIP = '10.0.254.252'
-
-    picoPort = 35492
-
-    s = socket.socket()
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-
-    s.connect((picoIP, picoPort))
-    #print('client socket established')
-    return s
-
-#msg = b'hello'
-
-#while True:
-#s.sendall(msg)
-#print('sent :',msg)
-
-def receive(s):
-    try:
-        payload = s.recv(100).decode()
-        payload = payload.replace('(','').replace(')', '')
-        payload = payload.split(',')
-
-        data =[]
-
-        for datum in payload:
-            data.append(float(datum))
-
-        wifi.blink(1, 0.01)
-
-    except Exception as e:
-        print(e)
-        s.close()
-
-    s.close()
-    return data
-
-def main():
-    #print(receive(open_port()))
-    wifi.main()
-
+def test():
     while True:
-        print(receive(open_port()))
+            for direction in directions:
+                 for stepcount in range(200):
+                    board.step(1,direction,8)
+                    board.step(2,direction,8)
+            utime.sleep_ms(500)#pause between motors
+
 
 if __name__ == '__main__':
-    main()
+    wifi.main()
+
+    pos_start = {'az': 0.0,
+                 'alt': 0.0
+                 }
+    pos_crnt = pos_start
+
+    az_last = 0
+    alt_last = 0
+
+
+
+    while True:
+        data = get_data()
+        print('data ;' , data)
+        az = data[0]
+        alt = data[2]
+
+        az_delta  = az - az_last
+        alt_delta = alt - alt_last
+        print('alt_delta ;', alt_delta)
+
+        if alt_delta >= 0:
+            alt_dir = 'f'
+        elif alt_delta < 0:
+            alt_dir = 'r'
+            alt_delta = alt_delta * -1
+
+        print('alt_dir :', alt_dir)
+
+
+
+
+        board.stepAngle(2,alt_dir,alt_delta,holdPosition=False)
+
+        alt_last = alt
+        print('alt_last ;', alt_last)
+        utime.sleep(1)
+
+
+
+
+
+
+
+

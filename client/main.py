@@ -1,3 +1,5 @@
+### Client
+
 import socket
 import wifi
 import time
@@ -34,21 +36,27 @@ def receive(s):
         payload = s.recv(100).decode()
         payload = payload.replace('(','').replace(')', '')
         payload = payload.split(',')
+
         data =[]
+
         for datum in payload:
             data.append(float(datum))
 
+        wifi.blink(1, 0.01)
 
     except Exception as e:
         print(e)
         s.close()
 
+    s.close()
     return data
 
 def main():
     #print(receive(open_port()))
     wifi.main()
-    return receive(open_port())
+
+    while True:
+        print(receive(open_port()))
 
 if __name__ == '__main__':
-    print(main())
+    main()

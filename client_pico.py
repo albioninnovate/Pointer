@@ -58,5 +58,8 @@ def main():
     while True:
         print(receive(open_port()))
 
+def get_data():
+    return receive(open_port())
+
 if __name__ == '__main__':
     main()
