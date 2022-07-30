@@ -1,5 +1,7 @@
 ### Client
 
+## Flash as client_pico.py
+
 import socket
 import wifi
 import time
@@ -12,17 +14,16 @@ This script is a client that receives data from the
 
 
 def open_port():
-    picoIP = '192.168.1.23'
-    #picoIP = '10.0.254.252'
+    #picoIP = '192.168.1.23'
+    picoIP = '10.0.253.239'
 
     picoPort = 35492
 
     s = socket.socket()
-    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
+    #s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     s.connect((picoIP, picoPort))
-    #print('client socket established')
+#    print('client socket established')
     return s
 
 #msg = b'hello'
@@ -57,6 +58,9 @@ def main():
 
     while True:
         print(receive(open_port()))
+
+def get_data():
+    return receive(open_port())
 
 if __name__ == '__main__':
     main()

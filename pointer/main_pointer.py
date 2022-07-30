@@ -4,7 +4,7 @@
 import picorobotics
 # from picorobotics import PicoRobotics
 import utime
-from client_pico import get_data
+from client.client_pico import get_data
 import wifi
 
 board = picorobotics.KitronikPicoRobotics()
@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     while True:
         data = get_data()
- #       print('data ;' , data)
+        print('data ;' , data)
         az = data[0]
         alt = data[2]
 
@@ -42,7 +42,7 @@ if __name__ == '__main__':
             alt_dir = 'r'
             alt_delta = alt_delta * -1
 
-#        print('alt_dir :', alt_dir)
+        print('alt_dir :', alt_dir)
 
         board.stepAngle(2,alt_dir,alt_delta,holdPosition=False)
 

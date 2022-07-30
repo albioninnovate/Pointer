@@ -1,9 +1,13 @@
+## wifi.py
+
+
 import time
 import machine
 import rp2
 import network
 import ubinascii
 
+import apoint
 import secrets
 
 def wlan_setup():
@@ -16,6 +20,7 @@ def wlan_setup():
     # See the MAC address in the wireless chip OTP
     mac = ubinascii.hexlify(network.WLAN().config('mac'), ':').decode()
     print('mac : ' + mac)
+
 
     # Other things to query
     print('WiFI channel : ', wlan.config('channel'))
@@ -35,9 +40,9 @@ def logon(wlan, ssid, password):
     while max_wait > 0:
         if wlan.status() < 0 or wlan.status() >= 3:
             break
-            max_wait -= 1
-            print('waiting for connection...')
-            time.sleep(1)
+        max_wait -= 1
+        print('waiting for connection...')
+        time.sleep(1)
 
     # Handle connection error
     if wlan.status() != 3:
@@ -66,8 +71,6 @@ def blink(num_blinks, lenght_of_blink=.2):
     # -1 Link Fail
     # -2 Link NoNet
     # -3 Link BadAuth
-
-
 
 def main():
     blink(1,5)

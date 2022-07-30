@@ -1,3 +1,6 @@
+## server.py
+
+
 import socket
 import machine
 from bno055 import *
@@ -13,7 +16,7 @@ import network
 """
 This script is a server running in micropython for the PICOW.  Its primary function is on connection from a client 
  is to read data from the BNO055 board via i2c and send that data to the client via a tcp socket.  
- 
+
  all these need to be flashed to the PICO in addition to this script:
     bno055.py
     bno055_base.py
@@ -35,17 +38,12 @@ but not tested under this micropython implementation
 i2c = machine.SoftI2C(sda=machine.Pin(18), scl=machine.Pin(19), timeout=100_000)
 
 #TODO pull wlan status from wifi model
-wifi
+
+wifi.main()
+
 wlan = network.WLAN(network.STA_IF)
 
 sensor = BNO055(i2c)
-
-led = machine.Pin('LED', machine.Pin.OUT)
-
-def flash(lenght=0.1, led=led):
-    led.on()
-    time.sleep(lenght)
-    led.off()
 
 last_val = 0xFFFF
 
@@ -114,14 +112,14 @@ if __name__ == "__main__":
         #serial_out(sensor)
 
         try:
-            print('read : ', str(sensor.euler()))
+            #print('read : ', str(sensor.euler()))
             cl, addr = s.accept()
             #print(s.recv(1024))
 
-            print('Client connected from', addr)
+            #print('Client connected from', addr)
             cl.send(str(sensor.euler()))
-            flash
-            print('sent : ', sensor.euler())
+            wifi.blink(1,0.05)
+            #print('sent : ', sensor.euler())
             cl.close()
 
             if not wlan.ifconfig()[0]:

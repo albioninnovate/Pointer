@@ -1,6 +1,6 @@
 from picorobotics import PicoRobotics
 import utime
-import client_pico
+from client import client_pico
 
 board = PicoRobotics.KitronikPicoRobotics()
 directions = ["f","r"]
