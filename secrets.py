@@ -1,7 +1,7 @@
 ### secrets.py
 
 
-
+#added
 def wifi_networks():
     return  {
         #'DrayTek' : 'ILikeCake365',
