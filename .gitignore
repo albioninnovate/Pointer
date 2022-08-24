@@ -140,3 +140,4 @@ cython_debug/
 
 !/secrets.py
 !/config.ini
+secrets.py
