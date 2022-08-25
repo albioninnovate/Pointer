@@ -3,8 +3,6 @@ import network
 
 import secrets
 
-
-
 def wifi(ssid, password):
 
     wlan = network.WLAN(network.STA_IF)
